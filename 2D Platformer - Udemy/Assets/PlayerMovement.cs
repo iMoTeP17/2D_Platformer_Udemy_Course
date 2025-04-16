@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour
 
     // NOTE: public variables, if its private it doesnt get picked up in Unity editor
     
-    
     private  Rigidbody2D rigidBody;
+    private Animator animator;
     
     [Header("Movement Info")]
     public int moveSpeed;
@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -69,8 +70,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void doMovement()
     {
+        bool isMoving = rigidBody.linearVelocityX != 0f;
+        animator.SetBool("isMoving", isMoving);
+        
         rigidBody.linearVelocity = new Vector2(movementInputX* moveSpeed, rigidBody.linearVelocity.y);
-
     }
     
 }
